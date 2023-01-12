@@ -1,0 +1,7 @@
+{% macro buttons(id,contato) %}
+<form action="/deletar_contato", method="post">
+    <button class="waves-effect waves-light btn-small red"><i class="material-icons right">delete</i>Deletar</button>
+    <input type="hidden"  name="id" value="{{id}}">
+</form>
+<a onclick="open_modal_editar_contato('{{contato.id}}','{{contato.nome}}','{{contato.email}}','{{contato.celular}}','{% for i in contato.tags %}{{i}},{% endfor %}','{% for i in contato.links_img_tag %}{{i}},{% endfor %}');"  class="waves-effect waves-light btn-small blue"><i class="material-icons right">edit</i>Editar</a>
+{% endmacro %}

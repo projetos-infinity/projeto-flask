@@ -1,0 +1,7 @@
+{% macro tag(contato) %}
+    {% for tag,link in zip(contato.tags,contato.links_img_tag): %}
+    <div class="chip">
+        <img src="{{link}}" alt="Contact Person"> {{tag}} </img>
+    </div>
+    {% endfor %}
+{% endmacro %}

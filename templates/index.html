@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Cadastro de Contatos{% endblock %}
+{% from "nav.html" import nav %}
+{% from "modal.html" import modal %}
+{% from "row.html" import row %}
+{% from "tags.html" import tag %}
+{% from "buttons.html" import buttons %}
+{% block body %}
+{{ nav() }}
+{{ modal() }}
+<div class="row">
+    <div class="card-panel gray">
+        <div style="background-color:#fff;text-align:right">
+            <a  data-target="modal1" class="waves-effect waves-light btn-large modal-trigger" ><i class="material-icons right">add</i>Adicionar Contato</a>
+        </div>
+    </div>
+</div>
+<table class="striped">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Celular</th>
+            <th>#Tags</th>
+            <th>...</th>
+        </tr>
+        </thead>
+        <tbody>
+        
+        {% for contato in contatos: %}
+            {{ 
+                row(
+                    contato.id,
+                    contato.nome,
+                    contato.email,
+                    contato.celular,
+                    tag(contato),
+                    buttons(contato.id,contato),
+                )
+            }}
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+
+
+
+
+
+
+

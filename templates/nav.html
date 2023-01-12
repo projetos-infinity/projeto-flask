@@ -1,0 +1,12 @@
+{% macro nav(nav1="Home", nav2="Sobre", nav3="Contato",textNav="Infinity") %}
+    <nav>
+        <div class="nav-wrapper">
+        <a href="#" class="brand-logo">{{ textNav }}</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="">{{ nav1 }}</a></li>
+            <li><a href="">{{ nav2 }}</a></li>
+            <li><a href="">{{ nav3 }}</a></li>
+        </ul>
+        </div>
+    </nav>
+{% endmacro %}

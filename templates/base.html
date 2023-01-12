@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    {% block body %}
+    {% endblock %}
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.modal').modal();
+    });
+    
+    $('.chips-initial').chips({
+        placeholder: 'Enter a tag',
+        secondaryPlaceholder: '+Tag',
+        autocompleteOptions: {
+        data: {{link_tags| safe}},
+        limit: Infinity,
+        minLength: 1
+        },
+        data: [{
+        tag: 'Familia',
+        }],
+    });
+    function limpar_contatos(){
+        document.getElementById('nome').value = ''
+        document.getElementById('email').value = ''
+        document.getElementById('celular').value = ''
+
+    }
+    function open_modal_editar_contato(id_,nome,email,celular,tags,links_img_tag){
+        document.getElementById("myForm").action = "/editar_contato";
+        document.getElementById("title_modal").textContent = "Editar Contato";
+        document.getElementById("btn_add2").setAttribute( "onClick", "submit_editar('"+id_+"','"+nome+"','"+email+"','"+celular+"');" );;
+        document.getElementById('btn_add2').innerHTML = '<i class="material-icons right">add</i> Editar contato';
+        var instance = M.Modal.getInstance(modal1);
+        instance.open();
+        M.Chips.getInstance($('.chips-initial')).deleteChip(0);
+        tags.split(',').forEach((number, index) => {
+            M.Chips.getInstance($('.chips-initial')).addChip({
+            tag: tags.split(',')[index],
+            image: links_img_tag.split(',')[index], // optional
+        });
+        });
+    }
+    function adcionar_contato(){
+        var chips_values_str = JSON.stringify(M.Chips.getInstance($('.chips-initial')).chipsData);
+        document.getElementById('tags_val').value = chips_values_str;
+        document.getElementById("myForm").action = "/salvar_contato";
+        document.getElementById("myForm").submit();
+    }
+    function submit_editar(id_,nome,email,celular){
+        document.getElementById('nome').value = nome;
+        document.getElementById('email').value = email;
+        document.getElementById('celular').value = celular;
+        document.getElementById('id').value = id_;
+        var chips_values_str = JSON.stringify(M.Chips.getInstance($('.chips-initial')).chipsData);
+        document.getElementById('tags_val').value = chips_values_str;
+        document.getElementById("myForm").submit();
+    }
+</script>
+</body>
+</html>
