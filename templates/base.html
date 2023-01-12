@@ -40,6 +40,10 @@
     function open_modal_editar_contato(id_,nome,email,celular,tags,links_img_tag){
         document.getElementById("myForm").action = "/editar_contato";
         document.getElementById("title_modal").textContent = "Editar Contato";
+        document.getElementById('nome').value = nome;
+        document.getElementById('email').value = email;
+        document.getElementById('celular').value = celular;
+        document.getElementById('id').value = id_;
         document.getElementById("btn_add2").setAttribute( "onClick", "submit_editar('"+id_+"','"+nome+"','"+email+"','"+celular+"');" );;
         document.getElementById('btn_add2').innerHTML = '<i class="material-icons right">add</i> Editar contato';
         var instance = M.Modal.getInstance(modal1);
@@ -59,10 +63,6 @@
         document.getElementById("myForm").submit();
     }
     function submit_editar(id_,nome,email,celular){
-        document.getElementById('nome').value = nome;
-        document.getElementById('email').value = email;
-        document.getElementById('celular').value = celular;
-        document.getElementById('id').value = id_;
         var chips_values_str = JSON.stringify(M.Chips.getInstance($('.chips-initial')).chipsData);
         document.getElementById('tags_val').value = chips_values_str;
         document.getElementById("myForm").submit();
